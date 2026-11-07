@@ -3,3 +3,30 @@ dist/
 .env
 .env.*
 !.env.example
+
+# Python virtual environment
+SignHire/.venv/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Pytest cache
+.pytest_cache/
+
+# Binary / compiled files
+*.exe
+*.o
+
+# Large binary data files (too big for git)
+SignHire/data/raw/**/*.npy
+SignHire/data/processed/X.npy
+SignHire/data/processed/y.npy
+SignHire/data/processed/signers.npy
+
+# Trained model weights (large binary files)
+SignHire/data/models/*.keras
+
+# Temporary upload directory
+tmp-uploads/

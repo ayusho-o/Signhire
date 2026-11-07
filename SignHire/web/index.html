@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SignHire — Interview Aid</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────────── -->
+  <header>
+    <h1>SignHire</h1>
+    <p class="subtitle">Real-time ISL Interview Communication Aid</p>
+  </header>
+
+  <!-- ── Main two-column layout ──────────────────────────────────── -->
+  <main>
+
+    <!-- ══ LEFT: Applicant panel ═══════════════════════════════════ -->
+    <section class="panel" id="applicant-panel">
+      <h2>Applicant <span class="role-badge applicant-badge">Deaf / ISL</span></h2>
+
+      <!-- Live webcam feed (MJPEG from Flask) -->
+      <div class="video-wrapper">
+        <img id="video-feed" src="/video_feed" alt="Webcam feed" />
+        <div id="buffer-bar-wrapper">
+          <div id="buffer-bar"></div>
+          <span id="buffer-label">Buffer</span>
+        </div>
+      </div>
+
+      <!-- Prediction display -->
+      <div id="prediction-box" class="prediction-box unsure">
+        <span id="prediction-label">Waiting…</span>
+        <div id="confidence-row">
+          <div id="confidence-track">
+            <div id="confidence-fill"></div>
+            <div id="threshold-marker"></div>
+          </div>
+          <span id="confidence-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- Send current sign to transcript -->
+      <button id="send-sign-btn" class="btn btn-primary" disabled>
+        ✋ Send this sign
+      </button>
+
+      <!-- Language selector for interviewer's view -->
+      <div class="lang-row">
+        <label for="lang-select">Interviewer sees translation in:</label>
+        <select id="lang-select">
+          <option value="en">English</option>
+          <!-- More options added by JS from /config -->
+        </select>
+      </div>
+    </section>
+
+    <!-- ══ RIGHT: Interviewer panel ════════════════════════════════ -->
+    <section class="panel" id="interviewer-panel">
+      <h2>Interviewer <span class="role-badge interviewer-badge">Hearing</span></h2>
+
+      <!-- Speech-to-text controls -->
+      <div id="speech-box">
+        <p class="instruction">Press the microphone and speak. Your words appear below and are shared with the applicant.</p>
+        <button id="mic-btn" class="btn btn-mic">🎤 Start speaking</button>
+        <div id="speech-status"></div>
+        <div id="interim-text" class="interim"></div>
+      </div>
+
+      <!-- Browser speech API note -->
+      <p class="small-note">
+        Speech recognition uses your browser's Web Speech API.
+        Requires Chrome or Edge and an internet connection.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ── Shared transcript ────────────────────────────────────────── -->
+  <section id="transcript-section">
+    <div class="transcript-header">
+      <h2>Shared Transcript</h2>
+      <button id="clear-btn" class="btn btn-small">Clear</button>
+    </div>
+    <div id="transcript-box">
+      <p class="transcript-empty">No messages yet.</p>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────────── -->
+  <footer>
+    <p>
+      SignHire — University prototype &nbsp;|&nbsp;
+      Small self-recorded dataset (~40 clips, 1 signer, 8 signs) &nbsp;|&nbsp;
+      Results are indicative only
+    </p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

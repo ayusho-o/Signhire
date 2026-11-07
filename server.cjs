@@ -285,8 +285,8 @@ app.post('/api/ai/extract', async (req, res) => {
     return res.status(400).json({ error: 'A schema ID and narrative are required.' });
   }
 
-  if (!process.env.OPENAI_API_KEY) {
-    return res.status(503).json({ error: 'AI extraction is not configured. Add OPENAI_API_KEY to your environment.' });
+  if (!process.env.GEMINI_API_KEY) {
+    return res.status(503).json({ error: 'AI extraction is not configured. Add GEMINI_API_KEY to your environment.' });
   }
 
   try {

@@ -1,17 +1,17 @@
-const { ChatOpenAI } = require('@langchain/openai');
+const { ChatGoogleGenerativeAI } = require('@langchain/google-genai');
 const { PromptTemplate } = require('@langchain/core/prompts');
 const { JsonOutputParser } = require('@langchain/core/output_parsers');
 
 /**
  * Extracts structured key-value pairs matching a dynamic form schema
- * from an unstructured user narrative using OpenAI & LangChain.
+ * from an unstructured user narrative using Google Gemini & LangChain.
  */
 const extractFormData = async (userStory, formSchema) => {
-  // Initialize LLM with deterministic temperature
-  const model = new ChatOpenAI({
-    modelName: 'gpt-4o',
+  // Initialize Gemini with deterministic temperature
+  const model = new ChatGoogleGenerativeAI({
+    model: 'gemini-1.5-flash',
     temperature: 0,
-    openAIApiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.GEMINI_API_KEY
   });
 
   const parser = new JsonOutputParser();
@@ -56,6 +56,7 @@ USER NARRATIVE:
       userStory,
       expectedFields: JSON.stringify(expectedFields, null, 2)
     });
+
     const rawValues = response?.values && typeof response.values === 'object'
       ? response.values
       : response;
@@ -91,7 +92,7 @@ USER NARRATIVE:
       )
     };
   } catch (error) {
-    console.error('LangChain Extraction Error:', error);
+    console.error('LangChain Gemini Extraction Error:', error);
     throw new Error('Failed to parse unstructured text into structured JSON.');
   }
 };

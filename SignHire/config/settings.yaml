@@ -1,0 +1,73 @@
+# SignHire — global settings
+# Change values here; no code edits needed for most tuning.
+
+# ── Recording ────────────────────────────────────────────────────────────────
+recording:
+  fps: 15                   # actual capture fps on this laptop (measured ~13-15)
+  sequence_frames: 30       # number of frames per clip (≈2 s at 15 fps)
+  countdown_seconds: 3      # countdown shown before each clip starts
+  clips_per_sign: 15        # target clips per sign per signer
+
+# ── Landmarks ────────────────────────────────────────────────────────────────
+landmarks:
+  # Pose landmark indices to keep (upper body only, 0-indexed MediaPipe ids).
+  # 0-24 covers nose, eyes, ears, shoulders, elbows, wrists, hips.
+  pose_indices: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+
+  # Face landmark indices to keep (mouth corners + eyebrows).
+  # MediaPipe Face Mesh: 61,291 = mouth corners; 70,300 = left/right eyebrow outer;
+  # 105,334 = left/right eyebrow inner; 159,386 = upper lid; 145,374 = lower lid
+  face_indices: [61, 291, 70, 300, 105, 334, 159, 386, 145, 374]
+
+  # Number of hand landmarks (fixed by MediaPipe: 21 per hand)
+  hand_landmarks: 21
+
+# ── Augmentation ─────────────────────────────────────────────────────────────
+augmentation:
+  copies_per_clip: 8        # augmented copies generated per real training clip
+  scale_range: 0.05         # ± fraction of body scale
+  shift_range: 0.03         # ± fraction of shoulder width
+  rotation_deg: 10          # ± degrees
+  noise_sigma: 0.01         # Gaussian noise std (normalised units)
+  time_warp_range: 0.10     # ± fraction of sequence length
+
+# ── Model ────────────────────────────────────────────────────────────────────
+model:
+  lstm_units_1: 64
+  lstm_units_2: 32
+  dropout: 0.3
+  epochs: 60
+  batch_size: 16
+  learning_rate: 0.001
+
+  baseline_gru_units: 32
+
+# ── Inference ────────────────────────────────────────────────────────────────
+inference:
+  confidence_threshold: 0.70   # tuned on validation; below this → "Unsure"
+  predict_every_n_frames: 5    # run model every N frames to reduce CPU load
+
+# ── Paths ────────────────────────────────────────────────────────────────────
+paths:
+  raw_data: data/raw
+  processed_data: data/processed
+  models_dir: data/models
+  reports_dir: reports
+
+# ── Translation ───────────────────────────────────────────────────────────────
+translation:
+  # Set provider to "none" (default stub) or "libretranslate".
+  # Until a real provider is configured, Hindi shows "Translator not configured."
+  provider: none
+
+  # LibreTranslate settings — only used when provider = "libretranslate"
+  libretranslate_url: ""   # e.g. https://libretranslate.com
+  libretranslate_api_key: ""   # set in .env, not here
+
+  # Languages shown in the interviewer dropdown
+  # Each entry: {code: BCP-47, label: display name}
+  target_languages:
+    - code: "en"
+      label: "English"
+    - code: "hi"
+      label: "Hindi"

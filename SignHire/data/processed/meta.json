@@ -1,0 +1,18 @@
+{
+  "class_names": [
+    "hello",
+    "no",
+    "please",
+    "repeat",
+    "sorry",
+    "thank_you",
+    "understand",
+    "yes"
+  ],
+  "feature_dim": 231,
+  "target_frames": 30,
+  "num_samples": 120,
+  "signers": [
+    "signer_01"
+  ]
+}

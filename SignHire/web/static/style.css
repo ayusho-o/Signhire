@@ -1,0 +1,348 @@
+/* SignHire — stylesheet
+   Clean, accessible, high-contrast layout.
+   No external CSS frameworks — keep it simple and explainable. */
+
+/* ── Reset & base ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #0f1117;
+  --surface:     #1a1d27;
+  --surface2:    #23273a;
+  --border:      #2e3248;
+  --accent:      #4f8ef7;
+  --accent-dark: #2e5bbf;
+  --green:       #2ecc71;
+  --orange:      #e67e22;
+  --red:         #e74c3c;
+  --text:        #e8eaf0;
+  --text-muted:  #8892a4;
+  --radius:      10px;
+  --shadow:      0 4px 24px rgba(0,0,0,0.4);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ────────────────────────────────────────────────────────── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 32px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+header h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.5px;
+}
+header .subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Main two-column layout ────────────────────────────────────────── */
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px 32px;
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  main { grid-template-columns: 1fr; }
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow);
+}
+
+.panel h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.role-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.applicant-badge  { background: #1a3a5c; color: #7ec8f7; }
+.interviewer-badge { background: #1a3a25; color: #7ef7a0; }
+
+/* ── Video feed ────────────────────────────────────────────────────── */
+.video-wrapper {
+  position: relative;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+#video-feed {
+  width: 100%;
+  display: block;
+  min-height: 240px;
+  object-fit: cover;
+}
+
+/* Buffer fill bar under video */
+#buffer-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--surface2);
+}
+#buffer-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+#buffer-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: var(--fill, 0%);
+  background: var(--green);
+  border-radius: 4px;
+  transition: width 0.15s ease;
+}
+#buffer-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── Prediction box ────────────────────────────────────────────────── */
+.prediction-box {
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.prediction-box.confident { border-color: var(--green); }
+.prediction-box.unsure    { border-color: var(--orange); }
+
+#prediction-label {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.prediction-box.confident #prediction-label { color: var(--green); }
+.prediction-box.unsure    #prediction-label { color: var(--orange); }
+
+/* Confidence bar */
+#confidence-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#confidence-track {
+  flex: 1;
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  position: relative;
+  overflow: visible;
+}
+#confidence-fill {
+  height: 100%;
+  border-radius: 5px;
+  width: 0%;
+  transition: width 0.2s ease, background 0.2s;
+  background: var(--green);
+}
+#threshold-marker {
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 18px;
+  background: #f1c40f;
+  border-radius: 1px;
+}
+#confidence-pct {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  min-width: 38px;
+  text-align: right;
+}
+
+/* ── Buttons ───────────────────────────────────────────────────────── */
+.btn {
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-primary  { background: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
+
+.btn-mic      { background: var(--green); color: #fff; width: 100%; }
+.btn-mic.recording { background: var(--red); }
+.btn-mic:hover:not(:disabled) { opacity: 0.88; }
+
+.btn-small    { background: var(--surface2); color: var(--text-muted);
+                border: 1px solid var(--border); padding: 5px 12px;
+                font-size: 0.8rem; }
+.btn-small:hover { color: var(--text); }
+
+/* ── Language selector ─────────────────────────────────────────────── */
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.lang-row label { font-size: 0.85rem; color: var(--text-muted); }
+#lang-select {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+#lang-select option:disabled { color: var(--text-muted); }
+
+/* ── Speech box ────────────────────────────────────────────────────── */
+#speech-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.instruction { font-size: 0.88rem; color: var(--text-muted); }
+
+#speech-status {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  min-height: 1.2em;
+}
+#interim-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  font-style: italic;
+  min-height: 1.4em;
+  padding: 6px 10px;
+  background: var(--surface2);
+  border-radius: 6px;
+  border: 1px dashed var(--border);
+}
+
+.small-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+/* ── Transcript ────────────────────────────────────────────────────── */
+#transcript-section {
+  margin: 0 32px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.transcript-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+}
+.transcript-header h2 { font-size: 1rem; font-weight: 600; }
+
+#transcript-box {
+  padding: 16px 20px;
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.transcript-empty { color: var(--text-muted); font-size: 0.9rem; }
+
+/* Transcript entries */
+.transcript-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  max-width: 75%;
+}
+.transcript-entry.applicant {
+  align-self: flex-start;
+  background: #1a2a4a;
+  border-left: 3px solid var(--accent);
+}
+.transcript-entry.interviewer {
+  align-self: flex-end;
+  background: #1a3a25;
+  border-right: 3px solid var(--green);
+}
+.entry-meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 8px;
+}
+.entry-speaker { font-weight: 600; text-transform: capitalize; }
+.entry-text    { font-size: 0.95rem; }
+.entry-translated {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 10px 32px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}

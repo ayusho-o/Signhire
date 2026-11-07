@@ -1,0 +1,14 @@
+{
+  "signer_id": "signer_01",
+  "label": "hello",
+  "source": "webcam",
+  "clip_index": 3,
+  "timestamp": "2026-10-29T16:51:01.826915",
+  "feature_dim": 231,
+  "frame_count_saved": 30,
+  "recorded_fps": 16.2,
+  "recorded_duration_s": 1.851,
+  "frame_count_raw": 30,
+  "configured_seq_frames": 30,
+  "npy_file": "signer_01_hello_003.npy"
+}

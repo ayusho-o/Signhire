@@ -1,0 +1,35 @@
+# SignHire — Python dependencies
+# Requires Python 3.10 or 3.11.
+# mediapipe does NOT support Python 3.12+ as of this writing.
+#
+# Install inside a virtual environment:
+#   python -m venv .venv
+#   .venv\Scripts\Activate.ps1      # Windows PowerShell
+#   pip install -r requirements.txt
+#
+# Versions are pinned to avoid silent breakage.
+# Licenses: opencv-python (Apache 2.0), mediapipe (Apache 2.0),
+#   tensorflow (Apache 2.0), numpy (BSD), scikit-learn (BSD),
+#   matplotlib (PSF/BSD), pyyaml (MIT), flask (BSD), requests (Apache 2.0),
+#   scipy (BSD), pytest (MIT).
+
+# ── Computer vision & ML ─────────────────────────────────────────────────────
+opencv-python==4.9.0.80
+mediapipe==0.10.14
+tensorflow==2.15.0
+numpy==1.26.4
+scikit-learn==1.4.2
+matplotlib==3.8.4
+scipy==1.13.0
+
+# ── Config parsing ────────────────────────────────────────────────────────────
+pyyaml==6.0.1
+
+# ── Web backend ───────────────────────────────────────────────────────────────
+flask==3.0.3
+
+# ── Translation (HTTP calls to LibreTranslate or similar) ────────────────────
+requests==2.31.0
+
+# ── Development & testing ────────────────────────────────────────────────────
+pytest==8.2.0

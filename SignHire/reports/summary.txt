@@ -1,0 +1,41 @@
+SignHire — Evaluation Summary
+============================================================
+
+CV mode : stratified_kfold
+Classes : hello, no, please, repeat, sorry, thank_you, understand, yes
+
+IMPORTANT: These results are based on a small self-recorded dataset (1 signer, 8 signs, 5 clips per sign). They reflect within-dataset performance only and should NOT be treated as conclusive. See reports/CAVEAT.md for full details.
+
+Model: LSTM
+  Accuracy per fold : 0.917  0.708  0.875  0.750  1.000
+  Mean ± std        : 0.850 ± 0.107
+  Avg latency       : 59.3 ms
+  Avg unsure %      : 0.0%
+
+  Sign               Prec    Rec     F1
+  ──────────────── ────── ────── ──────
+  hello             1.000  0.800  0.880
+  no                0.833  0.800  0.808
+  please            0.833  0.867  0.848
+  repeat            0.883  0.933  0.905
+  sorry             0.900  0.800  0.840
+  thank_you         0.870  1.000  0.921
+  understand        0.920  0.933  0.910
+  yes               0.753  0.667  0.663
+
+Model: BASELINE
+  Accuracy per fold : 0.875  0.875  0.917  0.792  0.875
+  Mean ± std        : 0.867 ± 0.041
+  Avg latency       : 59.1 ms
+  Avg unsure %      : 0.0%
+
+  Sign               Prec    Rec     F1
+  ──────────────── ────── ────── ──────
+  hello             0.900  0.867  0.863
+  no                0.900  0.800  0.803
+  please            0.767  0.867  0.809
+  repeat            1.000  0.933  0.960
+  sorry             0.867  0.800  0.827
+  thank_you         0.900  0.933  0.903
+  understand        1.000  0.933  0.960
+  yes               0.850  0.800  0.765

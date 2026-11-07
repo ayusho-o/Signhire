@@ -1,0 +1,14 @@
+{
+  "signer_id": "signer_01",
+  "label": "understand",
+  "source": "webcam",
+  "clip_index": 12,
+  "timestamp": "2026-10-29T20:08:31.272380",
+  "feature_dim": 231,
+  "frame_count_saved": 30,
+  "recorded_fps": 12.0,
+  "recorded_duration_s": 2.499,
+  "frame_count_raw": 30,
+  "configured_seq_frames": 30,
+  "npy_file": "signer_01_understand_012.npy"
+}

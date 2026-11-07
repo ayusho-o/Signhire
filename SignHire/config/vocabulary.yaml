@@ -1,0 +1,14 @@
+# SignHire — sign vocabulary
+# Edit this list to add or remove signs.
+# Labels must match the folder names under data/raw/<signer_id>/<sign>/
+# Keep labels lowercase with underscores (no spaces).
+
+signs:
+  - "hello"
+  - "thank_you"
+  - "yes"
+  - "no"
+  - "please"
+  - "sorry"
+  - "repeat"
+  - "understand"

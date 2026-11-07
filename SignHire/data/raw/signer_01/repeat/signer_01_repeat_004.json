@@ -1,0 +1,14 @@
+{
+  "signer_id": "signer_01",
+  "label": "repeat",
+  "source": "webcam",
+  "clip_index": 4,
+  "timestamp": "2026-10-29T17:14:23.327033",
+  "feature_dim": 231,
+  "frame_count_saved": 30,
+  "recorded_fps": 13.1,
+  "recorded_duration_s": 2.29,
+  "frame_count_raw": 30,
+  "configured_seq_frames": 30,
+  "npy_file": "signer_01_repeat_004.npy"
+}
